@@ -44,7 +44,7 @@ const mapBackendToFrontend = (backendData) => {
         competitorDataViz: analysis.market.competitors.map(c => ({ name: c.molecule, value: c.share })),
 
         // Report URL
-        pdfUrl: backendData.pdf_url
+        pdfUrl: `${API_BASE_URL}${backendData.pdf_url}`
     };
 };
 
