@@ -19,31 +19,63 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 const EXAMPLE_SCENARIOS = [
   {
     title: "Metformin Repurposing",
-    desc: "Pediatric metabolic disease opportunities",
+    desc: "Pediatric NAFLD opportunities",
     icon: <Pill className="w-4 h-4 text-blue-500" />,
-    prompt: "Find pediatric repurposing opportunities for metformin in India beyond diabetes.",
-    strategy: { agents: ["Clinical", "Market", "Patent"], output: "Gap Analysis" }
+    prompt: "Identify repurposing opportunities for Metformin in pediatric non-alcoholic fatty liver disease (NAFLD) considering recent Phase 2 data."
   },
   {
-    title: "Keytruda Patent Cliff",
-    desc: "Biosimilar entry points 2028",
+    title: "SGLT2 for HFpEF",
+    desc: "Non-diabetic heart failure",
+    icon: <Pill className="w-4 h-4 text-indigo-500" />,
+    prompt: "Evaluate the potential of SGLT2 inhibitors for heart failure with preserved ejection fraction (HFpEF) in non-diabetic patients."
+  },
+  {
+    title: "Respiratory Gap (India)",
+    desc: "Low competition, high burden",
+    icon: <Globe className="w-4 h-4 text-orange-500" />,
+    prompt: "Which respiratory diseases show low competition but high patient burden in India?"
+  },
+  {
+    title: "Rare Genetic (EU)",
+    desc: "Underserved orphan disorders",
+    icon: <Globe className="w-4 h-4 text-emerald-500" />,
+    prompt: "Identify underserved rare genetic disorders in the EU market with no approved therapies."
+  },
+  {
+    title: "Biologics Patent Cliff",
+    desc: "US Exclusivity Loss < 3 yrs",
     icon: <ShieldCheck className="w-4 h-4 text-purple-500" />,
-    prompt: "Analyze the patent cliff risks for Keytruda in 2028 and identify biosimilar entry points.",
-    strategy: { agents: ["Patent", "Market", "Legal"], output: "Risk Assessment" }
+    prompt: "List top-selling biologics losing patent exclusivity in the US within the next 3 years and assess biosimilar entry barriers."
   },
   {
-    title: "Alzheimer's Market",
-    desc: "EU disease modifying therapies",
-    icon: <BrainCircuit className="w-4 h-4 text-emerald-500" />,
-    prompt: "Evaluate the market potential for new Alzheimer's disease modifying therapies in the EU.",
-    strategy: { agents: ["Market", "Clinical", "Regulatory"], output: "Market Forecast" }
+    title: "Sitagliptin FTO (Brazil)",
+    desc: "Sustained-release IP risk",
+    icon: <ShieldCheck className="w-4 h-4 text-red-500" />,
+    prompt: "Analyze Freedom-to-Operate (FTO) risk for a sustained-release formulation of Sitagliptin in Brazil."
   },
   {
-    title: "mRNA Supply Chain",
-    desc: "Southeast Asia manufacturing",
-    icon: <Factory className="w-4 h-4 text-orange-500" />,
-    prompt: "Identify supply chain vulnerabilities for mRNA vaccine production in Southeast Asia.",
-    strategy: { agents: ["EXIM", "Market", "Geopolitics"], output: "Supply Chain Map" }
+    title: "Cephalosporin Supply",
+    desc: "China import dependency",
+    icon: <Factory className="w-4 h-4 text-amber-500" />,
+    prompt: "Assess the supply chain dependency risk for Cephalosporin API imports from China over the last 12 months."
+  },
+  {
+    title: "Insulin Trade (India)",
+    desc: "Import restriction impact",
+    icon: <Factory className="w-4 h-4 text-cyan-500" />,
+    prompt: "Analyze the impact of recent trade restrictions on Insulin analog imports into India."
+  },
+  {
+    title: "Alzheimer's Pipeline",
+    desc: "Japan Phase 3 landscape",
+    icon: <Beaker className="w-4 h-4 text-pink-500" />,
+    prompt: "Map the competitive landscape of Phase 3 Alzheimer's disease disease-modifying therapies in Japan."
+  },
+  {
+    title: "CAR-T Oncology",
+    desc: "Solid tumor trial sponsors",
+    icon: <Beaker className="w-4 h-4 text-teal-500" />,
+    prompt: "Identify sponsors with active oncology trials for CAR-T therapies targeting solid tumors."
   }
 ];
 
@@ -594,15 +626,26 @@ export default function App() {
                     Enter a research query above to analyze repurposing opportunities across clinical trials, market data, patents, and internal knowledge.
                   </p>
 
-                  {/* Example Chips */}
-                  <div className="flex flex-wrap justify-center gap-2 max-w-2xl mx-auto">
+                  {/* Example Chips - Detailed Grid View */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-4xl mx-auto text-left">
                     {EXAMPLE_SCENARIOS.map((s, i) => (
                       <button
                         key={i}
                         onClick={() => handleSearch(s.prompt)}
-                        className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors ${darkMode ? 'bg-slate-800 border-slate-700 text-slate-300 hover:text-blue-400 hover:border-blue-500' : 'bg-slate-100 border-slate-200 text-slate-600 hover:text-blue-600 hover:bg-blue-50'}`}
+                        className={`p-3 rounded-lg border transition-all hover:shadow-md text-left group ${darkMode ? 'bg-slate-800/50 border-slate-700 hover:bg-slate-800 hover:border-blue-500/50' : 'bg-white border-gray-200 hover:border-blue-300 hover:bg-blue-50/30'}`}
                       >
-                        {s.title}
+                        <div className="flex items-center justify-between mb-1">
+                          <div className="flex items-center gap-2">
+                            {s.icon}
+                            <span className={`font-bold text-sm ${darkMode ? 'text-slate-200' : 'text-gray-800'}`}>{s.title}</span>
+                          </div>
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded ${darkMode ? 'bg-slate-900 text-slate-500' : 'bg-gray-100 text-gray-500'}`}>
+                            {s.desc}
+                          </span>
+                        </div>
+                        <p className={`text-xs italic line-clamp-2 group-hover:line-clamp-none transition-all ${darkMode ? 'text-slate-400 group-hover:text-slate-300' : 'text-gray-500 group-hover:text-gray-700'}`}>
+                          "{s.prompt}"
+                        </p>
                       </button>
                     ))}
                   </div>
